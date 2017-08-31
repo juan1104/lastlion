@@ -2,7 +2,6 @@ class PostsController < ApplicationController
   def index
     
     @posts = Post.all
-    @newpost = Post.new
   end
 
   def new
@@ -11,7 +10,8 @@ class PostsController < ApplicationController
 
   def create
     
-    Post.create(title: params[:title], content: params[:content])
+    # Post.create(title: params[:title], content: params[:content])
+    Post.create(title: params[:post][:title], content: params[:post][:content])
     redirect_to '/'
     
   end
@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 
   def update
     @post = Post.find(params[:id])
-    @post.update_attributes(title: parmas[:title], content:params[:content])
+    @post.update_attributes(title: params[:post][:title], content: params[:post][:content])
     redirect_to '/'
   end
 
@@ -30,5 +30,9 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy
     redirect_to '/'
+  end
+  def show
+      @post = Post.find(params[:id])
+      @comments = Comment.all
   end
 end

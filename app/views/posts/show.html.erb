@@ -1,10 +1,25 @@
-<%= @post.id %>
+<center>
+
+<h1><%= @post.id %>번째 글입니다.</h1>
 <p>
-<%= @post.title %>
+<h2>제목 : <%= @post.title %></h2>
 </p>
 
 <p>
-<%= @post.content %>
+내용 : <%= @post.content %>
 </p>
+<hr>
+<h3> 댓글 </h3>
+<form action= '/posts/show/<%= @post.id %>/comments/create' method= 'post'>
+    <input type='text' name = 'input_comment'>
+    <input type = 'submit'>
+</form>
+
+
+<% @comments.each do |comment| %>
+<p><%= comment.content %></p>
+<% end %>
+
 
 <%= link_to "뒤로가기", :back %>
+</center>

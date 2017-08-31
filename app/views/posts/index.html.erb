@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<style>
+
+.newpost_title{
+    width: 100%;
+    padding: 0px 1px;
+    /*margin: 8px 0;*/
+    margin: auto;
+    justify-content:center;
+    width: max-content;
+}
+
+input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    /*margin: 8px 0;*/
+    box-sizing: border-box;
+    box-shadow: 1px 1px 11px #330033;
+    border: 2px solid #f69e6d;
+    border-radius: 10px
+}
+
+.newpost_body{
+    /*width: 100%;*/
+    /*margin:0;*/
+    /*padding:0;*/
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    /*border: 2px solid orange;*/
+    border-radius: 10px;
+    width: max-content;
+    margin: auto;
+}
+
+textarea {
+    width: 100%;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #f69e6d;
+    border-radius: 10px;
+    /*background-color: #f8f8f8;*/
+    font-size: 16px;
+    resize: none;
+     box-shadow: 1px 1px 11px #330033;
+}
+
+.main{
+    margin:0, 0, 0, 10;
+    text-align:center;
+}
+
+.board_section {
+     margin: 5% auto;
+}
+
+
+.category{
+     justify-content:center;
+     margin: 0;
+}
+
+input[type='submit']{
+    border:none;
+    background-color:#f69e6d;
+    color:white;
+    font-size:15px;
+    padding:3px 10px;
+    border-radius: 15px;
+    width: 50%
+    margin: auto;
+    /*height: 10px;*/
+    display: inline-block 
+    text-align: center;
+    margin: auto !important;
+    box-shadow: 1px 1px 11px #330033;
+    }
+    
+.post{
+     width: 60%;
+    height: 100px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #f69e6d;
+    border-radius: 10px;
+    /*background-color: #f8f8f8;*/
+    /*font-size: 16px;*/
+    resize: none;
+     box-shadow: 1px 1px 11px #330033;
+     text-align: center;
+     margin: 3%;
+}    
+
+.post-box{
+    margin: 5px;
+}
+</style>
+
+
+
+
+<center>
+     
+<h1>게시판 ㅎㅎ</h1><% if user_signed_in? %>
+   <strong><%= current_user.email%></strong>님 환영합니다!
+    <%= link_to '로그아웃', destroy_user_session_path, method: 'delete' %>
+<% else %>
+    <%= link_to '로그인', new_user_session_path %>
+    <%= link_to '회원가입', new_user_registration_path %>
+<% end %>        
+</center>
+
+<html>
+    <body>
+<section class = "board_section" >
+<br><br><br>
+<%= form_for @newpost do |f| %> 
+
+ <div class="newpost_title">
+      <%= f.text_field :title, :size=>"123", placeholder: '제목을 입력해주세요'  %>
+ </div>
+    <br>
+</div><br>
+ <div class="newpost_body">
+      <%= f.text_area :content, placeholder: '내용을 입력해주세요', cols: "100", rows: "10",maxlength:2000 %>
+ </div>
+ <br><br><br>
+ <center> <%= f.submit '올리기'%> </center>
+<% end %>
+</section>
+</body>
+</html>
+
+
+
+
+
+
+
+<div class="post-box">
+<% @posts.each do |post| %>
+<center>
+<div class = "post">
+    <%= post.id%>
+    <%= post.title%>
+    <%= post.content%>
+    <br><br>
+    <%= link_to '이 글 보기', "/posts/#{post.id}" %>
+    <%= link_to '수정하기', "/posts/#{post.id}/edit" %>
+    <%= link_to '삭제', "/posts/#{post.id}", method: 'delete', data: {confirm: "정말 삭제하실 건가요?"} %>
+</div>
+<% end %>
+</center>
+</div>

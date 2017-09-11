@@ -12,7 +12,7 @@ class PostsController < ApplicationController
     
     # Post.create(title: params[:title], content: params[:content])
     Post.create(title: params[:post][:title], content: params[:post][:content])
-    redirect_to '/'
+    redirect_to '/posts'
     
   end
 
@@ -23,13 +23,13 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     @post.update_attributes(title: params[:post][:title], content: params[:post][:content])
-    redirect_to '/'
+    redirect_to '/posts'
   end
 
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to '/'
+    redirect_to '/posts'
   end
   def show
       @post = Post.find(params[:id])
